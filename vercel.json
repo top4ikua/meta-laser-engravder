@@ -3,8 +3,6 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/admin", "destination": "/admin.html" },
-    { "source": "/api/settings", "destination": "/api/settings.js" },
-    { "source": "/api/activations/:slug", "destination": "/api/activations.js?slug=:slug" },
     { "source": "/a/:slug", "destination": "/index.html" },
     { "source": "/((?!_next|assets|api).*)", "destination": "/index.html" }
   ]
