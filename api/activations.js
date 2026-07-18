@@ -44,14 +44,29 @@ export default async function handler(req, res) {
       })
     );
 
-    const { slug } = req.query;
+    // 1. Check if the slug came through Vercel's query parsing
+    let slug = req.query.slug;
 
+    // 2. Fallback: Parse the raw URL directly if Vercel passed it as a full route path
+    if (!slug && req.url) {
+      const urlParts = req.url.split('?')[0].split('/');
+      // If the URL looks like /api/activations/connect-ml, grab the last piece
+      const lastPart = urlParts[urlParts.length - 1];
+      if (lastPart && lastPart !== 'activations' && lastPart !== 'activations.js') {
+        slug = lastPart;
+      }
+    }
+
+    // If we detected a valid campaign slug, return just that item
     if (slug) {
       const singleCampaign = realCampaigns.find(c => c.slug === slug);
-      if (!singleCampaign) return res.status(404).json({ error: "Campaign not found" });
+      if (!singleCampaign) {
+        return res.status(404).json({ error: `Campaign '${slug}' not found` });
+      }
       return res.status(200).json(singleCampaign);
     }
 
+    // Otherwise, return the full index dashboard array
     return res.status(200).json(realCampaigns);
   } catch (error) {
     console.error(error);
