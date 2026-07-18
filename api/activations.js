@@ -39,49 +39,49 @@ export default async function handler(req, res) {
         name: "Meta Cannes 2026",
         slug: "meta-cannes-2026",
         description: "Meta Engraver for Cannes Lion",
-        _count: { caseColors: 3, fonts: 2, icons: 9, orders: 2 }
+        _count: { caseColors: 3, fonts: 2, icons: 9, orders: 0 }
       },
       {
         id: "meta-la",
         name: "Meta LA",
         slug: "meta-la",
         description: "Meta Engraver for Los Angeles events",
-        _count: { caseColors: 3, fonts: 2, icons: 10, orders: 6 }
+        _count: { caseColors: 3, fonts: 2, icons: 10, orders: 0 }
       },
       {
         id: "meta-nyc",
         name: "Meta NYC",
         slug: "meta-nyc",
         description: "Meta Engraver for NYC",
-        _count: { caseColors: 3, fonts: 2, icons: 18, orders: 2 }
+        _count: { caseColors: 3, fonts: 2, icons: 18, orders: 0 }
       },
       {
         id: "meta-party-la",
         name: "Meta Party - LA",
         slug: "meta-party-la",
         description: "Meta Engraver for LA event",
-        _count: { caseColors: 3, fonts: 1, icons: 11, orders: 1 }
+        _count: { caseColors: 3, fonts: 1, icons: 11, orders: 0 }
       },
       {
         id: "meta-vegas",
         name: "Meta Vegas",
         slug: "meta-vegas",
         description: "Meta Engraver for Las Vegas events with Hyperion tracking",
-        _count: { caseColors: 3, fonts: 2, icons: 20, orders: 5 }
+        _count: { caseColors: 3, fonts: 2, icons: 20, orders: 0 }
       },
       {
         id: "meta-waikiki",
         name: "Meta Waikiki",
         slug: "meta-waikiki",
         description: "Meta Waikiki",
-        _count: { caseColors: 3, fonts: 2, icons: 9, orders: 4 }
+        _count: { caseColors: 3, fonts: 2, icons: 9, orders: 0 }
       },
       {
         id: "multi-case-test",
         name: "Multi Case Test",
         slug: "multi-case-test",
         description: "Multi Case Test",
-        _count: { caseColors: 6, fonts: 1, icons: 10, orders: 1 }
+        _count: { caseColors: 6, fonts: 1, icons: 10, orders: 0 }
       },
       {
         id: "sis-test",
