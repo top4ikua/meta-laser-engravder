@@ -3,7 +3,7 @@
   "trailingSlash": false,
   "rewrites": [
     { "source": "/admin", "destination": "/admin.html" },
-    { "source": "/((?!_next|assets|api).* block)", "destination": "/index.html" },
-    { "source": "/a/:path*", "destination": "/index.html" }
+    { "source": "/a/:slug", "destination": "/index.html" },
+    { "source": "/((?!_next|assets|api).*)", "destination": "/index.html" }
   ]
 }
