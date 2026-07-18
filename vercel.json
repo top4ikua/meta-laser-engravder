@@ -1,6 +1,9 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": false,
   "rewrites": [
     { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/((?!_next|assets|api).* block)", "destination": "/index.html" },
     { "source": "/a/:path*", "destination": "/index.html" }
   ]
 }
