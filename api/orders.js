@@ -6,22 +6,28 @@ const redis = new Redis({
 });
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') return res.status(200).end();
+
+  if (req.method === 'POST') {
+    try {
+      const { campaignSlug, slug } = req.body || {};
+      const targetSlug = campaignSlug || slug;
+
+      if (!targetSlug) {
+        return res.status(400).json({ error: 'Missing campaign identifier (slug)' });
+      }
+
+      const newCount = await redis.incr(`orders:${targetSlug}`);
+      return res.status(200).json({ success: true, activations: newCount });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ error: 'Failed to update database' });
+    }
   }
 
-  try {
-    const { campaignId, caseColor, icon, text, font } = req.body;
-    if (!campaignId) return res.status(400).json({ error: 'Campaign ID required' });
-
-    const orderId = `order:${Date.now()}`;
-    
-    // Save order details to Upstash and increment the counter
-    await redis.set(orderId, JSON.stringify({ campaignId, caseColor, icon, text, font, createdAt: new Date() }));
-    await redis.incr(`orders_count:${campaignId}`);
-
-    return res.status(200).json({ success: true, orderId });
-  } catch (error) {
-    return res.status(500).json({ success: false, error: error.message });
-  }
+  return res.status(405).json({ error: 'Method not allowed' });
 }
