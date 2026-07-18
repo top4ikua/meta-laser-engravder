@@ -1,10 +1,6 @@
 {
-  "cleanUrls": true,
-  "trailingSlash": false,
-  "routes": [
-    { "src": "/api/activations", "dest": "/api/activations.js" },
-    { "src": "/api/orders", "dest": "/api/orders.js" },
-    { "src": "/admin", "dest": "/admin.html" },
-    { "src": "/a/(.*)", "dest": "/index.html" }
+  "rewrites": [
+    { "source": "/admin", "destination": "/admin.html" },
+    { "source": "/a/:path*", "destination": "/index.html" }
   ]
 }
