@@ -6,25 +6,38 @@ const redis = new Redis({
 });
 
 export default async function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+
   try {
-    const campaigns = [
-      'connect-ml', 'connect-vip', 'meta-cannes-2026', 'meta-la', 
-      'meta-nyc', 'meta-party-la', 'meta-vegas', 'meta-waikiki', 
-      'multi-case', 'sis-test'
+    // 1. Fetch your live counter from Upstash Redis
+    const liveOrdersCount = await redis.get('campaign_activations') || 0;
+
+    // 2. Build the exact campaign data structure the frontend is looping over
+    const mockCampaigns = [
+      {
+        id: "meta-laser-1",
+        name: "Meta Engraver Custom Elite",
+        slug: "meta-engraver-custom-elite",
+        description: "Premium laser engraving configuration template.",
+        _count: {
+          caseColors: 5,
+          fonts: 12,
+          icons: 24,
+          orders: Number(liveOrdersCount) // <-- Your live Upstash data goes right here!
+        }
+      }
     ];
 
-    const updatedCampaigns = await Promise.all(
-      campaigns.map(async (id) => {
-        const liveOrders = await redis.get(`orders_count:${id}`);
-        return {
-          id: id,
-          orders: Number(liveOrders) || 0
-        };
-      })
-    );
-
-    return res.status(200).json({ success: true, data: updatedCampaigns });
+    // 3. Return it as a proper array so .map() works flawlessly
+    return res.status(200).json(mockCampaigns);
   } catch (error) {
-    return res.status(500).json({ success: false, error: error.message });
+    console.error(error);
+    return res.status(500).json({ error: 'Database connection failed' });
   }
 }
