@@ -1,0 +1,10 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "routes": [
+    { "src": "/api/activations", "dest": "/api/activations.js" },
+    { "src": "/api/orders", "dest": "/api/orders.js" },
+    { "src": "/admin", "dest": "/admin.html" },
+    { "src": "/a/(.*)", "dest": "/index.html" }
+  ]
+}
